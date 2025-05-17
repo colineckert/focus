@@ -1,9 +1,11 @@
+/*
+Copyright © 2025 Colin Eckert <colineckert10@gmail.com>
+
+*/
 package main
 
-import (
-	"fmt"
-)
+import "github.com/colineckert/focus/cmd"
 
 func main() {
-	fmt.Println("Hello, World!")
+	cmd.Execute()
 }
