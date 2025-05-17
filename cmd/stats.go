@@ -9,6 +9,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+/*
+Example output:
+$ focus stats
+📊 Completed today:
+✅ 3 Pomodoros
+☕ 2 Short Breaks
+🛏️ 1 Long Break
+*/
+
 // statsCmd represents the stats command
 var statsCmd = &cobra.Command{
 	Use:   "stats",

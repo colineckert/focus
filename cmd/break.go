@@ -9,6 +9,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+/*
+Example output:
+
+$ focus break --long
+☕ Long break started: 15 minutes
+*/
+
 // breakCmd represents the break command
 var breakCmd = &cobra.Command{
 	Use:   "break",
@@ -20,7 +27,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("break called")
+		fmt.Println("💆 Break started: 5 minutes")
 	},
 }
 

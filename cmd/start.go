@@ -9,6 +9,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
+/*
+Example output:
+
+$ focus start --duration 25
+🍅 Focus session started: 25 minutes
+[#####.............] 10m remaining
+*/
+
 // startCmd represents the start command
 var startCmd = &cobra.Command{
 	Use:   "start",
@@ -20,7 +28,7 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("start called")
+		fmt.Println("🍅 Focus session started: 25 minutes")
 	},
 }
 
