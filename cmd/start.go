@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/colineckert/focus/internal/display"
 	"github.com/spf13/cobra"
 )
 
@@ -52,26 +53,9 @@ var startCmd = &cobra.Command{
 			// Print progress bar
 			minutes := int(remaining.Minutes())
 			seconds := int(remaining.Seconds()) % 60
-			fmt.Printf("\r[%-25s] %02d:%02d remaining", progressBar(duration, remaining, 25), minutes, seconds)
+			fmt.Printf("\r[%-25s] %02d:%02d remaining", display.ProgressBar(duration, remaining, 25), minutes, seconds)
 		}
 	},
-}
-
-func progressBar(totalDuration int, remaining time.Duration, barLength int) string {
-	totalSeconds := totalDuration * 60
-	remainingSeconds := int(remaining.Seconds())
-	progress := (totalSeconds - remainingSeconds) * barLength / totalSeconds
-
-	bar := ""
-	for i := range barLength {
-		if i < progress {
-			bar += "#"
-		} else {
-			bar += "."
-		}
-	}
-
-	return bar
 }
 
 func init() {
