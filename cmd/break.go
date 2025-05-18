@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -20,27 +21,45 @@ $ focus break --long
 var breakCmd = &cobra.Command{
 	Use:   "break",
 	Short: "Break for a short period",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("💆 Break started: 5 minutes")
+		duration := 5 // Default short break duration
+		long, err := cmd.Flags().GetBool("long")
+		if err != nil {
+			fmt.Println("Error retrieving long flag:", err)
+			return
+		}
+
+		if long {
+			fmt.Println("🛏️  Long break started: 15 minutes")
+			duration = 15 // Long break duration
+		} else {
+			fmt.Println("☕ Short break started: 5 minutes")
+		}
+
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+
+		endTime := time.Now().Add(time.Duration(duration) * time.Minute)
+
+		for now := range ticker.C {
+			remaining := endTime.Sub(now)
+
+			if remaining <= 0 {
+				fmt.Println("\n⏰ Break's over! Time to get back to work.")
+				break
+			}
+
+			// Print progress bar
+			minutes := int(remaining.Minutes())
+			seconds := int(remaining.Seconds()) % 60
+			fmt.Printf("\r[%-25s] %02d:%02d remaining", progressBar(duration, remaining, 25), minutes, seconds)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(breakCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// breakCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// breakCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	breakCmd.Flags().BoolP("long", "l", false, "Take a long break")
 }

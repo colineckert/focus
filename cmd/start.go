@@ -5,6 +5,7 @@ package cmd
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -21,27 +22,60 @@ $ focus start --duration 25
 var startCmd = &cobra.Command{
 	Use:   "start",
 	Short: "Start a Pomodoro session",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Long:  `Start a Pomodoro focus session with the option to specify the duration.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		duration, err := cmd.Flags().GetInt("duration")
 		if err != nil {
 			fmt.Println("Error retrieving duration flag:", err)
 			return
 		}
-		fmt.Printf("🍅 Focus session started: %d minutes\n", duration)
+		if duration < 1 {
+			fmt.Println("Duration must be positive.")
+			return
+		}
 
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+
+		endTime := time.Now().Add(time.Duration(duration) * time.Minute)
+		fmt.Printf("🍅 Focus session started: %d minutes (ends %s)\n", duration, endTime.Format("03:04 PM"))
+
+		for now := range ticker.C {
+			remaining := endTime.Sub(now)
+
+			if remaining <= 0 {
+				fmt.Println("\n⏰ Time's up! Take a break.")
+				// TODO: Update the stats to reflect the completed Pomodoro session
+				break
+			}
+
+			// Print progress bar
+			minutes := int(remaining.Minutes())
+			seconds := int(remaining.Seconds()) % 60
+			fmt.Printf("\r[%-25s] %02d:%02d remaining", progressBar(duration, remaining, 25), minutes, seconds)
+		}
 	},
+}
+
+func progressBar(totalDuration int, remaining time.Duration, barLength int) string {
+	totalSeconds := totalDuration * 60
+	remainingSeconds := int(remaining.Seconds())
+	progress := (totalSeconds - remainingSeconds) * barLength / totalSeconds
+
+	bar := ""
+	for i := range barLength {
+		if i < progress {
+			bar += "#"
+		} else {
+			bar += "."
+		}
+	}
+
+	return bar
 }
 
 func init() {
 	rootCmd.AddCommand(startCmd)
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
 	startCmd.Flags().IntP("duration", "d", 25, "Duration of the Pomodoro session in minutes")
 }
