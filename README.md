@@ -10,13 +10,13 @@ Stay productive using the Pomodoro Technique directly from your terminal — sta
 - [x] Start timer (pomodoro, short break, long break).
 - [x] Configurable durations (via CLI args).
 - [x] Show countdown in real time or progress updates (e.g., every minute).
-- [ ] CLI args or interactive prompts.
-- [ ] Notify user when session ends (desktop notification, sound, or terminal output).
+- [x] ASCII progress bar during timer.
 - [ ] Simple logging of completed sessions (store in a local JSON/CSV file).
 - [ ] View today’s stats.
+- [ ] Notify user when session ends (desktop notification, sound, or terminal output).
 
 🛠️ Stretch Features
-- [x] ASCII progress bar during timer.
+- [ ] CLI args or interactive prompts.
 - [ ] Streak tracking.
 - [ ] TUI mode (e.g., live countdown in a curses UI).
 - [ ] Idle detection or pause/resume (advanced).
