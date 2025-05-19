@@ -30,7 +30,8 @@ Clone and build:
 git clone https://github.com/colineckert/focus
 cd focus
 go build -o focus
-./focus --help
+mv focus /usr/local/bin/focus
+focus --help
 ```
 
 ## 🧠 Usage
