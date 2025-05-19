@@ -1,5 +1,5 @@
 /*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
+Copyright © 2025 Colin Eckert <colineckert10@gmail.com>
 */
 package cmd
 
@@ -41,7 +41,7 @@ var startCmd = &cobra.Command{
 
 		startTime := time.Now()
 		endTime := startTime.Add(time.Duration(duration) * time.Minute)
-		fmt.Printf("🍅 Focus session started: %d minutes (ends %s)\n", duration, endTime.Format("03:04 PM"))
+		fmt.Printf("🍅 Focus session started: %d minutes\n", duration)
 
 		for now := range ticker.C {
 			remaining := endTime.Sub(now)

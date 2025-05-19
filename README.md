@@ -11,8 +11,8 @@ Stay productive using the Pomodoro Technique directly from your terminal — sta
 - [x] Configurable durations (via CLI args).
 - [x] Show countdown in real time or progress updates (e.g., every minute).
 - [x] ASCII progress bar during timer.
-- [ ] Simple logging of completed sessions (store in a local JSON/CSV file).
-- [ ] View today’s stats.
+- [x] Simple logging of completed sessions (store in a local JSON/CSV file).
+- [x] View today’s stats.
 - [ ] Notify user when session ends (desktop notification, sound, or terminal output).
 
 🛠️ Stretch Features
@@ -31,4 +31,31 @@ git clone https://github.com/colineckert/focus
 cd focus
 go build -o focus
 ./focus --help
+```
+
+## 🧠 Usage
+
+Start a Pomodoro session (25 min default)
+```bash
+focus start
+```
+
+Start a Pomodoro session (custom duration)
+```bash
+focus start --duration 45
+```
+
+Start a short break (5 min)
+```bash
+focus break
+```
+
+Start a long break (15 min)
+```bash
+focus break --long
+```
+
+View session stats
+```bash
+focus stats
 ```

@@ -30,3 +30,10 @@ type Session struct {
 	DurationMinutes int         `json:"duration_minutes"`
 	StartedAt       string      `json:"started_at"`
 }
+
+type Stats struct {
+	Focus     int
+	Break     int
+	LongBreak int
+	TotalTime int // in minutes
+}
